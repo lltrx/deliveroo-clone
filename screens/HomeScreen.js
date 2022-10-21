@@ -1,7 +1,8 @@
-import { View, Text, Image, SafeAreaView, TextInput} from 'react-native';
+import { View, Text, Image, SafeAreaView, TextInput, ScrollView} from 'react-native';
 import React, { useLayoutEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { ChevronDownIcon, UserIcon ,AdjustmentsVerticalIcon, MagnifyingGlassIcon} from "react-native-heroicons/outline";
+import Categories from "../components/Categories";
 
 
 const HomeScreen = () => {
@@ -33,7 +34,7 @@ const HomeScreen = () => {
       </View>
 
       {/* Search */}
-      <View className="flex-row items-center space-x-2 pb-2 mx-4 px-4">
+      <View className="flex-row items-center space-x-2 pb-2 mx-4">
         <View className="flex-row flex-1 space-x-2 bg-gray-200 p-3">
           <MagnifyingGlassIcon color="gray" size={20}/>
           <TextInput 
@@ -43,7 +44,12 @@ const HomeScreen = () => {
 
         <AdjustmentsVerticalIcon color="#00CCBB"/>
       </View>
-      
+      {/* Body */}
+      <ScrollView className="bg-gray-100 ">
+        {/* Categories */}
+        <Categories />
+        {/* Featured Row */}
+      </ScrollView>
     </SafeAreaView>
   );
 };
