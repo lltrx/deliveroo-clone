@@ -10,6 +10,7 @@ const FeaturedRow = ({id , title, description}) => {
           <Text className="font-bold text-lg">{title}</Text>
           <ArrowRightIcon  color="#00CCBB" />
     </View>
+
     <Text className="text-sx text-gray-500 px-4">{description}</Text>
 
     <ScrollView
@@ -33,9 +34,33 @@ const FeaturedRow = ({id , title, description}) => {
      long={-122.4194}
      lat={37.7749}
      />
+      <RestaurantCards 
+     id={1}
+     imgUrl='https://media-cdn.tripadvisor.com/media/photo-s/19/3b/00/06/sushi-place.jpg'
+     title="Yo! Sushi"
+     rating={4.5}
+     genre="Japanese"
+     address="1234 Main Street"
+     short_description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+     dishes={[]}
+     long={-122.4194}
+     lat={37.7749}
+     />
+      <RestaurantCards 
+     id={1}
+     imgUrl='https://media-cdn.tripadvisor.com/media/photo-s/19/3b/00/06/sushi-place.jpg'
+     title="Yo! Sushi"
+     rating={4.5}
+     genre="Japanese"
+     address="1234 Main Street"
+     short_description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+     dishes={[]}
+     long={-122.4194}
+     lat={37.7749}
+     />
     </ScrollView>
 </View>
-  )
-}
+  );
+};
 
-export default FeaturedRow
+export default FeaturedRow;
