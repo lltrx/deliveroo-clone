@@ -1,9 +1,30 @@
 import { View, Text, ScrollView } from 'react-native'
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {ArrowRightIcon} from "react-native-heroicons/outline";
 import RestaurantCards from './Utils/RestaurantCards'
+import sanityClient from '../sanity'
 
 const FeaturedRow = ({id , title, description}) => {
+      const [restaurants, setRestaurants] = useState([])
+
+      useEffect(() => {
+            sanityClient.fetch(
+            `*[_type == "featured" && _id == $id] {
+                  ...,
+                  restaurants[]->{
+                  ...,
+                  dishes[]->,
+                  type-> {
+                        name
+                  }
+                  },
+            }[0]
+            `, 
+            {id} ).then((data) => {
+                  setRestaurants(data?.restaurants)
+            });
+      }, [])
+
   return (
      <View>
     <View className="mt-4 flex-row items-center justify-between px-4">
@@ -22,42 +43,21 @@ const FeaturedRow = ({id , title, description}) => {
     showHorizontalScrollIndicator={false}
     className="pt-4">
      {/* RestaurantCards */}
-     <RestaurantCards 
-     id={1}
-     imgUrl='https://media-cdn.tripadvisor.com/media/photo-s/19/3b/00/06/sushi-place.jpg'
-     title="Yo! Sushi"
-     rating={4.5}
-     genre="Japanese"
-     address="1234 Main Street"
-     short_description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-     dishes={[]}
-     long={-122.4194}
-     lat={37.7749}
-     />
-      <RestaurantCards 
-     id={1}
-     imgUrl='https://media-cdn.tripadvisor.com/media/photo-s/19/3b/00/06/sushi-place.jpg'
-     title="Yo! Sushi"
-     rating={4.5}
-     genre="Japanese"
-     address="1234 Main Street"
-     short_description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-     dishes={[]}
-     long={-122.4194}
-     lat={37.7749}
-     />
-      <RestaurantCards 
-     id={1}
-     imgUrl='https://media-cdn.tripadvisor.com/media/photo-s/19/3b/00/06/sushi-place.jpg'
-     title="Yo! Sushi"
-     rating={4.5}
-     genre="Japanese"
-     address="1234 Main Street"
-     short_description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-     dishes={[]}
-     long={-122.4194}
-     lat={37.7749}
-     />
+      {restaurants?.map(restaurant => (
+            <RestaurantCards
+            key={restaurant._id}
+            id={restaurant._id}
+            imgUrl={restaurant.image}
+            address={restaurant.address}
+            title={restaurant.name}
+            dishes={restaurant.dishes}
+            rating={restaurant.rating}
+            short_description={restaurant.short_description}
+            genre={restaurant.type?.name}
+            long={restaurant.long}
+            lat={restaurant.lat}
+            />
+      ))}
     </ScrollView>
 </View>
   );

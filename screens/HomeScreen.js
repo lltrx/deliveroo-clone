@@ -66,24 +66,15 @@ useEffect(() => {
         <Categories />
 
         {/* Featured  */}
-        <FeaturedRow 
-        id="1"
-        title="Featured"
-        description="The best of the best"
-        />
-        {/* Tasty Discounts  */}
-        <FeaturedRow 
-        id="2"
-        title="Tasty Discounts"
-        description="The best of the best"
-        />
-        {/* Offers near you  */}
-        <FeaturedRow 
-        id="3"
-        title="Offers near you"
-        description="The best of the best"
-        />
 
+        {featuredCategories?.map(category => (
+          <FeaturedRow 
+          key={category._id}
+          id={category._id}
+          title={category.name}
+          description={category.short_description}
+          />
+        ))}
 
       </ScrollView>
     </SafeAreaView>
